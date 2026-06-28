@@ -45,7 +45,7 @@ struct MyApp: App {
     init() {
         GameAnalytics.configure(
             apiKey: "your-api-key",
-            endpoint: "https://game-analytics-7zic2.ondigitalocean.app"
+            endpoint: "https://api.gameanalytics.thsoftwareltd.com"
         )
         GameAnalytics.sessionStart()
     }
