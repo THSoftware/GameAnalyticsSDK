@@ -33,15 +33,6 @@ dependencies: [
 ]
 ```
 
-## Backend
-
-This SDK sends events to the open-source [Game Analytics API](https://github.com/THSoftware/game-analytics). You can self-host it for free — it's a Node.js/Fastify app that runs on any platform and stores data in PostgreSQL.
-
-1. Deploy the API (one-click on DigitalOcean App Platform or any Node host)
-2. Create an account at your dashboard URL
-3. Add your game to get an API key
-4. Pass that key to `configure()` below
-
 ## Usage
 
 ### Configure once at startup
