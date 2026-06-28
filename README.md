@@ -19,7 +19,7 @@ A lightweight, zero-dependency analytics SDK for iOS games. Drop it in, call thr
 
 ### Swift Package Manager
 
-In Xcode: **File → Add Package Dependencies**, then enter the repository URL:
+In Xcode: **File → Add Package Dependencies**, then enter:
 
 ```
 https://github.com/THSoftware/GameAnalyticsSDK
@@ -33,9 +33,9 @@ dependencies: [
 ]
 ```
 
-## Usage
+## Getting started
 
-### Configure once at startup
+Sign up at **[thsoftwareltd.com](https://thsoftwareltd.com)** to get your API key, then add three lines to your app:
 
 ```swift
 import GameAnalyticsSDK
@@ -45,13 +45,17 @@ struct MyApp: App {
     init() {
         GameAnalytics.configure(
             apiKey: "your-api-key",
-            endpoint: "https://your-api.example.com"
+            endpoint: "https://your-endpoint.com"
         )
         GameAnalytics.sessionStart()
     }
     // ...
 }
 ```
+
+That's it. Events start flowing to your dashboard immediately.
+
+## Tracking events
 
 ### Built-in convenience events
 
@@ -89,7 +93,7 @@ Events are queued in memory and sent in batches of up to 50. The SDK flushes aut
 - Immediately when the app enters the background
 - On the next launch if the previous flush failed (events are re-queued)
 
-The queue holds up to 500 events. If the device is offline for a long time, the oldest events are dropped to make room for new ones.
+The queue holds up to 500 events. If the device is offline for an extended period, the oldest events are dropped to make room for new ones.
 
 ## License
 
