@@ -35,7 +35,7 @@ dependencies: [
 
 ## Getting started
 
-Sign up at **[thsoftwareltd.com](https://thsoftwareltd.com)** to get your API key, then add three lines to your app:
+Sign up at **[gameanalytics.thsoftwareltd.com](https://gameanalytics.thsoftwareltd.com)** to get your API key, then add three lines to your app:
 
 ```swift
 import GameAnalyticsSDK
@@ -45,7 +45,7 @@ struct MyApp: App {
     init() {
         GameAnalytics.configure(
             apiKey: "your-api-key",
-            endpoint: "https://your-endpoint.com"
+            endpoint: "https://game-analytics-7zic2.ondigitalocean.app"
         )
         GameAnalytics.sessionStart()
     }
