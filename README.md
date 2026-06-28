@@ -1,0 +1,105 @@
+# GameAnalyticsSDK
+
+A lightweight, zero-dependency analytics SDK for iOS games. Drop it in, call three lines of code, and start seeing real player data in your dashboard.
+
+- Batches and flushes events automatically every 30 seconds
+- Flushes immediately when the app backgrounds
+- Retries failed requests — no events dropped on a bad connection
+- Generates and persists a stable anonymous player ID
+- Thread-safe via Swift actors
+- Zero external dependencies
+
+## Requirements
+
+- iOS 15+
+- Swift 5.9+
+- Xcode 15+
+
+## Installation
+
+### Swift Package Manager
+
+In Xcode: **File → Add Package Dependencies**, then enter the repository URL:
+
+```
+https://github.com/THSoftware/GameAnalyticsSDK
+```
+
+Or add it to your `Package.swift`:
+
+```swift
+dependencies: [
+    .package(url: "https://github.com/THSoftware/GameAnalyticsSDK", from: "1.0.0")
+]
+```
+
+## Backend
+
+This SDK sends events to the open-source [Game Analytics API](https://github.com/THSoftware/game-analytics). You can self-host it for free — it's a Node.js/Fastify app that runs on any platform and stores data in PostgreSQL.
+
+1. Deploy the API (one-click on DigitalOcean App Platform or any Node host)
+2. Create an account at your dashboard URL
+3. Add your game to get an API key
+4. Pass that key to `configure()` below
+
+## Usage
+
+### Configure once at startup
+
+```swift
+import GameAnalyticsSDK
+
+@main
+struct MyApp: App {
+    init() {
+        GameAnalytics.configure(
+            apiKey: "your-api-key",
+            endpoint: "https://your-api.example.com"
+        )
+        GameAnalytics.sessionStart()
+    }
+    // ...
+}
+```
+
+### Built-in convenience events
+
+```swift
+// Session lifecycle
+GameAnalytics.sessionStart()
+GameAnalytics.sessionEnd()
+
+// Levels
+GameAnalytics.levelStart(1)
+GameAnalytics.levelComplete(1, score: 4200)
+GameAnalytics.levelFail(1)
+```
+
+### Custom events with properties
+
+```swift
+GameAnalytics.track("power_up_collected", properties: [
+    "type": "shield",
+    "level": 3,
+    "time_remaining": 42.5
+])
+
+GameAnalytics.track("iap_initiated", properties: [
+    "product_id": "com.example.coins_500"
+])
+```
+
+`PropertyValue` accepts `String`, `Int`, `Double`, and `Bool` via literal syntax — no casting required.
+
+## How it works
+
+Events are queued in memory and sent in batches of up to 50. The SDK flushes automatically:
+- Every 30 seconds while the app is active
+- Immediately when the app enters the background
+- On the next launch if the previous flush failed (events are re-queued)
+
+The queue holds up to 500 events. If the device is offline for a long time, the oldest events are dropped to make room for new ones.
+
+## License
+
+MIT
